@@ -22,7 +22,7 @@ interface CocktailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(cocktailList: List<CocktailEntity>)
 
-    @Query("DELETE FROM post")
+    @Query("DELETE FROM cocktail")
     suspend fun deleteAll()
 
 }

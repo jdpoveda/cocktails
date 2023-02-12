@@ -23,6 +23,7 @@ class CocktailListFragment : BaseFragment<FragmentCocktailListBinding>() {
         //findNavController().navigate(R.id.action_SecondFragment_to_SplashScreenFragment)
         viewModel.getCocktailList()
         viewModel.uiState.collectWhileResumed {
+            println("********** data collected: " + it)
             //TODO: Add logic to update the UI based on the response
         }
     }
@@ -33,4 +34,5 @@ class CocktailListFragment : BaseFragment<FragmentCocktailListBinding>() {
     ): FragmentCocktailListBinding {
         return FragmentCocktailListBinding.inflate(inflater, container, false)
     }
+
 }
