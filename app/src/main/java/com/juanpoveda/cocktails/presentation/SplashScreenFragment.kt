@@ -12,7 +12,7 @@ import com.juanpoveda.cocktails.databinding.FragmentSplashScreenBinding
 import kotlinx.coroutines.delay
 
 /**
- * This Fragment shows the initial splash screen animation.
+ * This Fragment shows the initial splash screen animation (Lottie).
  */
 class SplashScreenFragment : Fragment() {
 
