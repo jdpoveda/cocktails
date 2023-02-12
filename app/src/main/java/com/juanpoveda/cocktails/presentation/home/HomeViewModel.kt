@@ -6,6 +6,7 @@ import com.juanpoveda.cocktails.data.model.CocktailsDTO
 import com.juanpoveda.cocktails.domain.model.Cocktail
 import com.juanpoveda.cocktails.domain.model.fold
 import com.juanpoveda.cocktails.domain.usecase.GetCocktailListUseCase
+import com.juanpoveda.cocktails.presentation.model.UiCocktail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,8 +21,8 @@ class HomeViewModel @Inject constructor(
     private val getCocktailListUseCase: GetCocktailListUseCase
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<List<Cocktail>?> = MutableStateFlow(null)
-    val uiState: StateFlow<List<Cocktail>?>
+    private val _uiState: MutableStateFlow<List<UiCocktail>?> = MutableStateFlow(null)
+    val uiState: StateFlow<List<UiCocktail>?>
         get() = _uiState
 
     fun getCocktailList(forceRefresh: Boolean = false) {

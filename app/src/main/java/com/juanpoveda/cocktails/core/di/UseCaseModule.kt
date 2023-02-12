@@ -1,5 +1,6 @@
 package com.juanpoveda.cocktails.core.di
 
+import com.juanpoveda.cocktails.domain.mapper.CocktailMapper
 import com.juanpoveda.cocktails.domain.repository.CocktailsRepository
 import com.juanpoveda.cocktails.domain.usecase.GetCocktailListUseCase
 import dagger.Module
@@ -12,7 +13,10 @@ import dagger.hilt.android.components.ViewModelComponent
 object UseCaseModule {
 
     @Provides
-    fun provideGetCocktailListUseCase(cocktailsRepository: CocktailsRepository) =
-        GetCocktailListUseCase(cocktailsRepository)
+    fun provideCocktailMapper(): CocktailMapper = CocktailMapper()
+
+    @Provides
+    fun provideGetCocktailListUseCase(cocktailsRepository: CocktailsRepository, cocktailMapper: CocktailMapper) =
+        GetCocktailListUseCase(cocktailsRepository, cocktailMapper)
 
 }
