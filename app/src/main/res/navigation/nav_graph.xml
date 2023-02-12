@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/SplashScreenFragment">
+
+    <fragment
+        android:id="@+id/SplashScreenFragment"
+        android:name="com.juanpoveda.cocktails.presentation.SplashScreenFragment"
+        android:label="@string/splash_screen_fragment_label"
+        tools:layout="@layout/fragment_splash_screen">
+
+        <action
+            android:id="@+id/action_SplashScreenFragment_to_CocktailListFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.juanpoveda.cocktails.presentation.CocktailListFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_cocktail_list">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_SplashScreenFragment"
+            app:destination="@id/SplashScreenFragment" />
+    </fragment>
+</navigation>
