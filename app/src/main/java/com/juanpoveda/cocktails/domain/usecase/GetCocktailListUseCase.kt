@@ -1,6 +1,6 @@
 package com.juanpoveda.cocktails.domain.usecase
 
-import com.juanpoveda.cocktails.data.model.DrinksDTO
+import com.juanpoveda.cocktails.data.model.CocktailsDTO
 import com.juanpoveda.cocktails.domain.model.Result
 import com.juanpoveda.cocktails.domain.model.fold
 import com.juanpoveda.cocktails.domain.repository.CocktailsRepository
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class GetCocktailListUseCase @Inject constructor(
     private val cocktailsRepository: CocktailsRepository
 ) {
-    operator fun invoke(forceRefresh: Boolean): Flow<Result<DrinksDTO>> = flow {
+    operator fun invoke(forceRefresh: Boolean): Flow<Result<CocktailsDTO>> = flow {
         cocktailsRepository.getCocktailList().map { result ->
             result.fold(
                 onSuccess = { cocktailsList ->

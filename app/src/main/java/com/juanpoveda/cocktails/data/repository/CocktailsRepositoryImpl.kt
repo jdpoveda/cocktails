@@ -1,6 +1,6 @@
 package com.juanpoveda.cocktails.data.repository
 
-import com.juanpoveda.cocktails.data.model.DrinksDTO
+import com.juanpoveda.cocktails.data.model.CocktailsDTO
 import com.juanpoveda.cocktails.domain.model.Result
 import com.juanpoveda.cocktails.data.repository.datasource.remote.CocktailsRemoteDataSource
 import com.juanpoveda.cocktails.domain.repository.CocktailsRepository
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class CocktailsRepositoryImpl @Inject constructor (
     private val cocktailsRemoteDataSource: CocktailsRemoteDataSource
 ): CocktailsRepository {
-    override fun getCocktailList(): Flow<Result<DrinksDTO>> = flow {
+    override fun getCocktailList(): Flow<Result<CocktailsDTO>> = flow {
 
         val response = cocktailsRemoteDataSource.getCocktailsList()
 
