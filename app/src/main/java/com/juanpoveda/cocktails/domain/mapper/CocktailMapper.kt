@@ -2,6 +2,7 @@ package com.juanpoveda.cocktails.domain.mapper
 
 import com.juanpoveda.cocktails.domain.model.Cocktail
 import com.juanpoveda.cocktails.presentation.model.UiCocktail
+import com.juanpoveda.cocktails.presentation.model.UiIngredient
 
 class CocktailMapper {
 
@@ -20,7 +21,9 @@ class CocktailMapper {
         thumb = cocktail.thumb,
         dateModified = cocktail.dateModified,
         imageSource = cocktail.imageSource,
-        ingredients = cocktail.ingredients
+        ingredients = cocktail.ingredients.filterKeys { it != null }.map {entry ->
+            UiIngredient(entry.key, entry.value)
+        }
     )
     
 }

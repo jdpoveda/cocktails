@@ -6,9 +6,8 @@ import android.transition.Transition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.transition.addListener
-import androidx.core.transition.doOnEnd
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -17,6 +16,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.juanpoveda.cocktails.databinding.FragmentCocktailDetailsBinding
 import com.juanpoveda.cocktails.presentation.base.BaseFragment
+import com.juanpoveda.cocktails.presentation.cocktaildetail.adapter.IngredientAdapter
+import com.juanpoveda.cocktails.presentation.model.UiIngredient
 
 /**
  * This Fragment displays the details of a specific cocktail
@@ -24,6 +25,7 @@ import com.juanpoveda.cocktails.presentation.base.BaseFragment
 class CocktailDetailsFragment : BaseFragment<FragmentCocktailDetailsBinding>() {
 
     private val args: CocktailDetailsFragmentArgs by navArgs()
+    private lateinit var adapter: IngredientAdapter
 
     override fun bindView(
         inflater: LayoutInflater,
@@ -36,6 +38,7 @@ class CocktailDetailsFragment : BaseFragment<FragmentCocktailDetailsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setImageAndTransitions()
         showCocktailDetails()
+        setAdapter()
     }
 
     private fun setImageAndTransitions() {
@@ -74,6 +77,18 @@ class CocktailDetailsFragment : BaseFragment<FragmentCocktailDetailsBinding>() {
 
     private fun showCocktailDetails() {
         binding.title.text = args.uiCocktail.name
+    }
+
+    private fun setAdapter() {
+        adapter = IngredientAdapter(this::onIngredientClicked).also {
+            binding.ingredientsRv.adapter = it
+            binding.ingredientsRv.layoutManager = LinearLayoutManager(requireActivity())
+        }
+        adapter.submitList(args.uiCocktail.ingredients)
+    }
+
+    private fun onIngredientClicked(uiIngredient: UiIngredient) {
+        //TODO: implement action when an ingredient is clicked
     }
 
 }
