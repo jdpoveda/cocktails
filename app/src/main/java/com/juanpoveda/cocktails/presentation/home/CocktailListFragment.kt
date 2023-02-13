@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.juanpoveda.cocktails.databinding.FragmentCocktailListBinding
 import com.juanpoveda.cocktails.presentation.base.BaseFragment
@@ -38,7 +41,6 @@ class CocktailListFragment : BaseFragment<FragmentCocktailListBinding>() {
         viewModel.uiState.collectWhileResumed {
             println("********** data collected: " + it)
             adapter.submitList(it)
-            //TODO: Add logic to update the UI based on the response
         }
     }
 
@@ -49,8 +51,14 @@ class CocktailListFragment : BaseFragment<FragmentCocktailListBinding>() {
         }
     }
 
-    private fun onCocktailClicked(uiCocktail: UiCocktail) {
-        //findNavController().navigate(R.id.action_SecondFragment_to_SplashScreenFragment)
+    private fun onCocktailClicked(uiCocktail: UiCocktail, cocktailImageView: ImageView) {
+        uiCocktail.thumb?.let {
+            val extras = FragmentNavigatorExtras(
+                cocktailImageView to it
+            )
+            val action = CocktailListFragmentDirections.actionCocktailListFragmentToCocktailDetailsFragment(uiCocktail)
+            this.findNavController().navigate(action, extras)
+        }
     }
 
 }

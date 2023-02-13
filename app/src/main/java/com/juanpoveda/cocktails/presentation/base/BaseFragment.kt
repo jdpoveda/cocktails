@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 
+/**
+ * Base Fragment which implements common functions to avoid code duplication
+ */
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     private var _binding: B? = null

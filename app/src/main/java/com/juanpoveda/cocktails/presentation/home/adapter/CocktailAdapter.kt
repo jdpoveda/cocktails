@@ -2,13 +2,15 @@ package com.juanpoveda.cocktails.presentation.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.juanpoveda.cocktails.databinding.CocktailListItemBinding
 import com.juanpoveda.cocktails.presentation.model.UiCocktail
 
-typealias OnCocktailClickListener = (UiCocktail) -> Unit
+typealias OnCocktailClickListener = (UiCocktail, ImageView) -> Unit
 
 class CocktailAdapter(
     private val onCocktailClickListener: OnCocktailClickListener
@@ -28,9 +30,15 @@ class CocktailAdapter(
         private val onCocktailClickListener: OnCocktailClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(cocktail: UiCocktail) {
-            binding.title.text = cocktail.name
-            //Glide.with(binding.root).load(this.image).into(binding.ingredientImageView)
-            binding.root.setOnClickListener { onCocktailClickListener(cocktail) }
+            binding.thumbnail.apply {
+                transitionName = cocktail.thumb
+                Glide.with(binding.root).load(cocktail.thumb).into(this)
+            }
+            binding.title.apply {
+                transitionName = cocktail.name
+                text = cocktail.name
+            }
+            binding.root.setOnClickListener { onCocktailClickListener(cocktail, binding.thumbnail) }
         }
     }
 
