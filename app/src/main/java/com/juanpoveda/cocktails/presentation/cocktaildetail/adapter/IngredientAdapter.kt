@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.juanpoveda.cocktails.databinding.IngredientListItemBinding
-import com.juanpoveda.cocktails.presentation.model.UiIngredient
+import com.juanpoveda.cocktails.presentation.model.UiIngredientMeasure
 
-typealias OnIngredientClickListener = (UiIngredient) -> Unit
+typealias OnIngredientClickListener = (UiIngredientMeasure) -> Unit
 
 class IngredientAdapter(
     private val onIngredientClickListener: OnIngredientClickListener
-) : ListAdapter<UiIngredient, IngredientAdapter.IngredientViewHolder>(IngredientListDiffCallback()) {
+) : ListAdapter<UiIngredientMeasure, IngredientAdapter.IngredientViewHolder>(IngredientListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val binding = IngredientListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,7 +27,7 @@ class IngredientAdapter(
         private val binding: IngredientListItemBinding,
         private val onIngredientClickListener: OnIngredientClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(ingredient: UiIngredient) {
+        fun bind(ingredient: UiIngredientMeasure) {
             binding.ingredientName.text = ingredient.ingredientName
             binding.ingredientMeasure.text = ingredient.measure
             binding.root.setOnClickListener { onIngredientClickListener(ingredient) }
@@ -36,13 +36,13 @@ class IngredientAdapter(
 
 }
 
-class IngredientListDiffCallback : DiffUtil.ItemCallback<UiIngredient>() {
+class IngredientListDiffCallback : DiffUtil.ItemCallback<UiIngredientMeasure>() {
 
-    override fun areItemsTheSame(oldItem: UiIngredient, newItem: UiIngredient): Boolean {
+    override fun areItemsTheSame(oldItem: UiIngredientMeasure, newItem: UiIngredientMeasure): Boolean {
         return oldItem.ingredientName.equals(newItem.ingredientName, true)
     }
 
-    override fun areContentsTheSame(oldItem: UiIngredient, newItem: UiIngredient): Boolean {
+    override fun areContentsTheSame(oldItem: UiIngredientMeasure, newItem: UiIngredientMeasure): Boolean {
         return oldItem == newItem
     }
 

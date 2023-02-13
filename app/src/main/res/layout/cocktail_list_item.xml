@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:layout_margin="16dp">
+    android:layout_margin="@dimen/common_small">
 
     <ImageView
         android:id="@+id/thumbnail"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_medium"
         android:textColor="@color/white"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/common_small"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/thumbnail"/>

@@ -1,13 +1,13 @@
 package com.juanpoveda.cocktails.data.repository
 
 import com.juanpoveda.cocktails.data.mapper.CocktailResponseMapper
-import com.juanpoveda.cocktails.data.model.CocktailsDTO
 import com.juanpoveda.cocktails.data.repository.datasource.local.CocktailsLocalDataSource
 import com.juanpoveda.cocktails.domain.model.Result
 import com.juanpoveda.cocktails.data.repository.datasource.remote.CocktailsRemoteDataSource
 import com.juanpoveda.cocktails.data.utils.NetworkUtils
 import com.juanpoveda.cocktails.domain.model.Cocktail
 import com.juanpoveda.cocktails.domain.model.DomainException
+import com.juanpoveda.cocktails.domain.model.Ingredient
 import com.juanpoveda.cocktails.domain.repository.CocktailsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -37,7 +37,7 @@ class CocktailsRepositoryImpl @Inject constructor (
                         cocktailsLocalDataSource.deleteAll()
                         cocktailsLocalDataSource.insertAll(
                             it.drinks.map {drinksList ->
-                                cocktailResponseMapper.mapResponseToEntity(drinksList)
+                                cocktailResponseMapper.mapCocktailResponseToEntity(drinksList)
                             }
                         )
                     }
@@ -47,8 +47,29 @@ class CocktailsRepositoryImpl @Inject constructor (
             emit(
                 Result.Success(
                     cocktailsLocalDataSource.getAllCocktails().first()
-                        .map { cocktailResponseMapper.mapEntityToDomain(it) })
+                        .map { cocktailResponseMapper.mapCocktailEntityToDomain(it) })
             )
+
+        } catch (e: Exception) {
+            emit(Result.Error(DomainException(e.message ?: "Something went wrong")))
+        }
+    }
+
+    override fun getIngredient(ingredientName: String): Flow<Result<Ingredient>> = flow {
+
+        try {
+            if (!cocktailsLocalDataSource.isIngredientInDb(ingredientName) && networkUtils.isNetworkAvailable()) {
+                val response = cocktailsRemoteDataSource.getIngredient(ingredientName)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        cocktailsLocalDataSource.insertIngredient(cocktailResponseMapper.mapIngredientResponseToEntity(it.ingredients.first()))
+                    }
+                }
+            }
+
+            cocktailsLocalDataSource.getIngredientByName(ingredientName)?.let { ingredientEntity ->
+                emit(Result.Success(cocktailResponseMapper.mapIngredientEntityToDomain(ingredientEntity)))
+            }
 
         } catch (e: Exception) {
             emit(Result.Error(DomainException(e.message ?: "Something went wrong")))

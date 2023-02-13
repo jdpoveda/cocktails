@@ -3,6 +3,7 @@ package com.juanpoveda.cocktails.core.di
 import android.content.Context
 import com.juanpoveda.cocktails.data.api.TheCocktailDBApi
 import com.juanpoveda.cocktails.data.database.dao.CocktailDao
+import com.juanpoveda.cocktails.data.database.dao.IngredientDao
 import com.juanpoveda.cocktails.data.mapper.CocktailResponseMapper
 import com.juanpoveda.cocktails.data.repository.CocktailsRepositoryImpl
 import com.juanpoveda.cocktails.data.repository.datasource.local.CocktailsLocalDataSource
@@ -31,8 +32,8 @@ object RepositoryModule {
     }
 
     @Provides
-    fun provideCocktailsLocalDataSource(cocktailDao: CocktailDao): CocktailsLocalDataSource {
-        return CocktailsLocalDataSourceImpl(cocktailDao)
+    fun provideCocktailsLocalDataSource(cocktailDao: CocktailDao, ingredientDao: IngredientDao): CocktailsLocalDataSource {
+        return CocktailsLocalDataSourceImpl(cocktailDao, ingredientDao)
     }
 
     @Provides

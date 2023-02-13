@@ -1,12 +1,15 @@
 package com.juanpoveda.cocktails.data.mapper
 
 import com.juanpoveda.cocktails.data.database.entity.CocktailEntity
+import com.juanpoveda.cocktails.data.database.entity.IngredientEntity
 import com.juanpoveda.cocktails.data.model.CocktailDTO
+import com.juanpoveda.cocktails.data.model.IngredientDTO
 import com.juanpoveda.cocktails.domain.model.Cocktail
+import com.juanpoveda.cocktails.domain.model.Ingredient
 
 class CocktailResponseMapper {
 
-    fun mapEntityToDomain(cocktailEntity: CocktailEntity): Cocktail {
+    fun mapCocktailEntityToDomain(cocktailEntity: CocktailEntity): Cocktail {
         return Cocktail(
             id = cocktailEntity.id,
             name = cocktailEntity.name,
@@ -26,7 +29,7 @@ class CocktailResponseMapper {
         )
     }
 
-    fun mapResponseToEntity(cocktailDTO: CocktailDTO): CocktailEntity {
+    fun mapCocktailResponseToEntity(cocktailDTO: CocktailDTO): CocktailEntity {
         return CocktailEntity(
             id = cocktailDTO.id,
             name = cocktailDTO.name,
@@ -61,4 +64,27 @@ class CocktailResponseMapper {
             )
         )
     }
+
+    fun mapIngredientEntityToDomain(ingredientEntity: IngredientEntity): Ingredient {
+        return Ingredient(
+            id = ingredientEntity.id,
+            name = ingredientEntity.name,
+            description = ingredientEntity.description,
+            type = ingredientEntity.type,
+            isAlcoholic = ingredientEntity.isAlcoholic,
+            ABV = ingredientEntity.ABV
+        )
+    }
+
+    fun mapIngredientResponseToEntity(ingredientDTO: IngredientDTO): IngredientEntity {
+        return IngredientEntity(
+            id = ingredientDTO.id,
+            name = ingredientDTO.name,
+            description = ingredientDTO.description,
+            type = ingredientDTO.type,
+            isAlcoholic = ingredientDTO.isAlcoholic,
+            ABV = ingredientDTO.ABV
+        )
+    }
+
 }

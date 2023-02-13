@@ -35,12 +35,11 @@ class CocktailsViewModel @Inject constructor(
         }.flowOn(Dispatchers.IO).launchIn(viewModelScope)
     }
 
-}
+    sealed class CocktailListUiState {
 
-sealed class CocktailListUiState {
+        object Loading : CocktailListUiState()
+        data class Success(val cocktails: List<UiCocktail>) : CocktailListUiState()
+        data class Error(val message: String) : CocktailListUiState()
 
-    object Loading : CocktailListUiState()
-    data class Success(val cocktails: List<UiCocktail>) : CocktailListUiState()
-    data class Error(val message: String) : CocktailListUiState()
-
+    }
 }

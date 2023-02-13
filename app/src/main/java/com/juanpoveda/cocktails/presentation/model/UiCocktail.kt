@@ -17,7 +17,7 @@ data class UiCocktail (
     val instructions: String?,
     val instructionsES: String?,
     val thumb: String?,
-    val ingredients: List<UiIngredient>,
+    val ingredients: List<UiIngredientMeasure>,
     val imageSource: String?,
     val dateModified: String?
 ): Parcelable

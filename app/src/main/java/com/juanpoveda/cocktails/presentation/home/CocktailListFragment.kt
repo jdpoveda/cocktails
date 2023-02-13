@@ -41,14 +41,14 @@ class CocktailListFragment : BaseFragment<FragmentCocktailListBinding>() {
     private fun observeCocktailListUiState() {
         viewModel.uiState.collectWhileResumed {
             when (it) {
-                is CocktailListUiState.Loading -> {
+                is CocktailsViewModel.CocktailListUiState.Loading -> {
                     binding.progressBar.isVisible = true
                 }
-                is CocktailListUiState.Success -> {
+                is CocktailsViewModel.CocktailListUiState.Success -> {
                     binding.progressBar.isVisible = false
                     adapter.submitList(it.cocktails)
                 }
-                is CocktailListUiState.Error -> {
+                is CocktailsViewModel.CocktailListUiState.Error -> {
                     binding.progressBar.visibility = View.GONE
                 }
             }

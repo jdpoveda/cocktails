@@ -27,4 +27,7 @@ object DatabaseModule {
     @Provides
     fun provideCocktailDao(cocktailsDatabase: CocktailsDatabase) = cocktailsDatabase.cocktailDao()
 
+    @Provides
+    fun provideIngredientDao(cocktailsDatabase: CocktailsDatabase) = cocktailsDatabase.ingredientDao()
+
 }
