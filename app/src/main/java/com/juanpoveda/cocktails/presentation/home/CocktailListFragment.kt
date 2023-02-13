@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CocktailListFragment : BaseFragment<FragmentCocktailListBinding>() {
 
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel: CocktailsViewModel by activityViewModels()
     private lateinit var adapter: CocktailAdapter
 
     override fun bindView(
@@ -39,8 +40,18 @@ class CocktailListFragment : BaseFragment<FragmentCocktailListBinding>() {
 
     private fun observeCocktailListUiState() {
         viewModel.uiState.collectWhileResumed {
-            println("********** data collected: " + it)
-            adapter.submitList(it)
+            when (it) {
+                is CocktailListUiState.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+                is CocktailListUiState.Success -> {
+                    binding.progressBar.isVisible = false
+                    adapter.submitList(it.cocktails)
+                }
+                is CocktailListUiState.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
         }
     }
 

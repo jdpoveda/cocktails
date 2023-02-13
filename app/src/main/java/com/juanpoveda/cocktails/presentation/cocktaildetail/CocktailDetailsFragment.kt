@@ -44,6 +44,8 @@ class CocktailDetailsFragment : BaseFragment<FragmentCocktailDetailsBinding>() {
     private fun setImageAndTransitions() {
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(android.R.transition.move)
         binding.cocktailIv.apply {
             transitionName = args.uiCocktail.thumb
             Glide.with(binding.root)
@@ -76,7 +78,8 @@ class CocktailDetailsFragment : BaseFragment<FragmentCocktailDetailsBinding>() {
     }
 
     private fun showCocktailDetails() {
-        binding.title.text = args.uiCocktail.name
+        binding.collapsingToolbar.title = args.uiCocktail.name
+        binding.instructions.text = args.uiCocktail.instructions
     }
 
     private fun setAdapter() {

@@ -30,7 +30,6 @@ class CocktailsRepositoryImpl @Inject constructor (
 
             if (networkUtils.isNetworkAvailable() && cacheHasExpired || forceRefresh) {
 
-                println("*********** getting info from endpoint...")
                 val response = cocktailsRemoteDataSource.getCocktailsList()
 
                 if (response.isSuccessful) {
@@ -43,8 +42,6 @@ class CocktailsRepositoryImpl @Inject constructor (
                         )
                     }
                 }
-            } else {
-                println("*********** cache valid, getting info from local...")
             }
 
             emit(

@@ -14,7 +14,7 @@
         <action
             android:id="@+id/action_SplashScreenFragment_to_CocktailListFragment"
             app:destination="@id/CocktailListFragment"
-            app:enterAnim="@anim/slide_in"
+            app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"
@@ -28,7 +28,11 @@
         tools:layout="@layout/fragment_cocktail_list">
         <action
             android:id="@+id/action_CocktailListFragment_to_cocktailDetailsFragment"
-            app:destination="@id/cocktailDetailsFragment" />
+            app:destination="@id/cocktailDetailsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/cocktailDetailsFragment"

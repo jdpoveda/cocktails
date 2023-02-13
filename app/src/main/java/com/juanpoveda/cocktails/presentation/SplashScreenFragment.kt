@@ -1,18 +1,16 @@
 package com.juanpoveda.cocktails.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.juanpoveda.cocktails.R
 import com.juanpoveda.cocktails.databinding.FragmentSplashScreenBinding
 import com.juanpoveda.cocktails.presentation.base.BaseFragment
-import com.juanpoveda.cocktails.presentation.home.HomeViewModel
+import com.juanpoveda.cocktails.presentation.home.CocktailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
@@ -22,7 +20,7 @@ import kotlinx.coroutines.delay
 @AndroidEntryPoint
 class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
 
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel: CocktailsViewModel by activityViewModels()
 
     override fun bindView(
         inflater: LayoutInflater,
